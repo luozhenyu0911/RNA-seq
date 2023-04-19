@@ -1,0 +1,33 @@
+samples:
+    # specifies expected location of split reads
+    fq_1: [data/split_read.1.fq.gz]
+    fq_2: [data/split_read.2.fq.gz]
+    # path to directory with the below lanes fastqs
+    fq_path: "../fastq"
+    # list of lanes to use. Should be directories within the fq_path directory
+    lanes: [mRNA]
+    # sample or id to use for generating targets
+    id: "data"
+modules:
+    # Should snakemake do stlfr specific analyses, false if the library isn't of linked reads
+    mapping: True
+    
+params:
+    # only include reads with mapping quality >= INT [0] using samtools
+    reads_map_q: 20 
+    # reference 
+    ref_fa: "/research/rv-02/home/zhenyuluo/reference/GRCh38/GRCh38_latest_genomic.fa"
+    # gtf
+    gtf: "/research/rv-02/home/zhenyuluo/reference/GRCh38/GRCh38_latest_genomic.gtf"
+    # Include other modules and rules to run
+    smk_path: '/research/rv-02/home/zhenyuluo/01_stLFR/17_ercc_rna/stLFR_Analysis/'
+    # the path of featureCounts
+    featureCounts: '/research/rv-02/home/zhenyuluo/git_biosoft/subread-2.0.2-Linux-x86_64/bin/featureCounts'
+    toolsdir: "/research/rv-02/home/eanderson/CGI_WGS_Pipeline/Data_and_Tools"
+
+threads:
+    # threads for various multi-threaded processes
+    # These can be modified if you wish
+    # They're automatically capped to the number of threads you specify when running snakemake with the -j option
+    hisat2: 80
+    featureCounts: 64
