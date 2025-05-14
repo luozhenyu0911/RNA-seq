@@ -1,33 +1,33 @@
 samples:
     # specifies expected location of split reads
-    fq_1: [data/split_read.1.fq.gz]
-    fq_2: [data/split_read.2.fq.gz]
-    # path to directory with the below lanes fastqs
-    fq_path: "../fastq"
-    # list of lanes to use. Should be directories within the fq_path directory
-    lanes: [mRNA]
-    # sample or id to use for generating targets
-    id: "data"
-modules:
-    # Should snakemake do stlfr specific analyses, false if the library isn't of linked reads
-    mapping: True
-    
+    raw_bam_list: [data/raw_in_samples.bam.list]
+    shifted_bam_list: [data/shifted_in_samples.bam.list]
+    id: "9498"
+# modules:
+#     # Should snakemake do stlfr specific analyses, false if the library isn't of linked reads
+#     mapping: True
+
 params:
-    # only include reads with mapping quality >= INT [0] using samtools
-    reads_map_q: 20 
-    # reference 
-    ref_fa: "/research/rv-02/home/zhenyuluo/reference/GRCh38/GRCh38_latest_genomic.fa"
-    # gtf
-    gtf: "/research/rv-02/home/zhenyuluo/reference/GRCh38/GRCh38_latest_genomic.gtf"
-    # Include other modules and rules to run
-    smk_path: '/research/rv-02/home/zhenyuluo/01_stLFR/17_ercc_rna/stLFR_Analysis/'
-    # the path of featureCounts
-    featureCounts: '/research/rv-02/home/zhenyuluo/git_biosoft/subread-2.0.2-Linux-x86_64/bin/featureCounts'
-    toolsdir: "/research/rv-02/home/eanderson/CGI_WGS_Pipeline/Data_and_Tools"
+    # path to the snakemake file
+    smk_path: "/XYFS01/HDD_POOL/gzfezx_shhli/gzfezx_shhlixy_2/BIGDATA2/gzfezx_shhli_2/USER/luozhenyu/script/mitoquest_smk/smkfile"
+    # path to the reference directory
+    ref_dir: "/XYFS01/HDD_POOL/gzfezx_shhli/gzfezx_shhlixy_2/BIGDATA2/gzfezx_shhli_2/database/GRCh38_chrM_rCRS"
+    # reference
+    shifted_ref_fa: "/XYFS01/HDD_POOL/gzfezx_shhli/gzfezx_shhlixy_2/BIGDATA2/gzfezx_shhli_2/database/GRCh38_chrM_rCRS/Homo_sapiens.GRCh38.chrM_rCRS.shifted_by_8000_bp.fa"
+    raw_ref_fa: "/XYFS01/HDD_POOL/gzfezx_shhli/gzfezx_shhlixy_2/BIGDATA2/gzfezx_shhli_2/database/GRCh38_chrM_rCRS/Homo_sapiens.GRCh38.chrM_rCRS.fa"
+    # path to mitoquest tool
+    mitoquest: "/HOME/gzfezx_shhli/gzfezx_shhlixy_3/BioSoftware/local/bin/mitoquest"
+    # annotation database
+    annotation_dir: "/XYFS01/HDD_POOL/gzfezx_shhli/gzfezx_shhlixy_2/BIGDATA2/gzfezx_shhli_2/software/mitoquest/data"
+    # path to some analysis scripts directory
+    scripts_dir: "/XYFS01/HDD_POOL/gzfezx_shhli/gzfezx_shhlixy_2/BIGDATA2/gzfezx_shhli_2/software/mitoquest/tools"
+    # path to the python
+    python: "/HOME/gzfezx_shhli/gzfezx_shhlixy_2/BIGDATA2/gzfezx_shhli_2/miniconda3/envs/pacbio/bin/python"
+    # the parameters for mitoquest
+    # the mapping quality cutoff for mitoquest
+    mapQ: 20
+    # the base quality cutoff for mitoquest
+    baseQ: 20
 
 threads:
-    # threads for various multi-threaded processes
-    # These can be modified if you wish
-    # They're automatically capped to the number of threads you specify when running snakemake with the -j option
-    hisat2: 80
-    featureCounts: 64
+    64
